@@ -1,0 +1,7 @@
+.autotools
+.cproject
+.project
+.settings/
+oxygine-game/
+project/proj.cmake/build/
+project/proj.sfos/build/
