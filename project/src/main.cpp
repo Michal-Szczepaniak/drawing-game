@@ -1,17 +1,9 @@
-/**
-    Attention!
-    This file initializes the Oxygine engine.
-    If you just started here and don't understand the code completely, feel free to come back later.
-    You can start from example.cpp and example.h, which main functions are called from here.
-*/
 #include "core/oxygine.h"
 #include "Stage.h"
 #include "DebugActor.h"
-#include "example.h"
-
+#include "game.h"
 
 using namespace oxygine;
-
 
 // This function is called each frame
 int mainloop()
@@ -22,7 +14,7 @@ int mainloop()
     bool done = core::update();
 
     // It gets passed to our example game implementation
-    example_update();
+    game_update();
 
     // Update our stage
     // Update all actors. Actor::update will also be called for all its children
@@ -31,7 +23,8 @@ int mainloop()
     if (core::beginRendering())
     {
         Color clearColor(32, 32, 32, 255);
-        Rect viewport(Point(0, 0), core::getDisplaySize());
+        Point size = core::getDisplaySize();
+        Rect viewport(Point(0, 0), size);
         // Render all actors inside the stage. Actor::render will also be called for all its children
         getStage()->render(clearColor, viewport);
 
@@ -52,26 +45,30 @@ void run()
 
 #if OXYGINE_SDL || OXYGINE_EMSCRIPTEN
     // The initial window size can be set up here on SDL builds
-    desc.w = 960;
-    desc.h = 640;
+    desc.w = 1280;
+    desc.h = 720;
     // Marmalade settings can be modified from the emulator's menu
 #endif
 
-
-    example_preinit();
+    game_preinit();
     core::init(&desc);
-
 
     // Create the stage. Stage is a root node for all updateable and drawable objects
     Stage::instance = new Stage(true);
     Point size = core::getDisplaySize();
+#if __SAILFISHOS__
+	size.x = size.y;
+	size.y = core::getDisplaySize().x;
+    getStage()->setPosition(size.y, 0);
+    getStage()->setRotationDegrees(90.0f);
+#endif
     getStage()->setSize(size);
 
     // DebugActor is a helper actor node. It shows FPS, memory usage and other useful stuff
     DebugActor::show();
 
     // Initializes our example game. See example.cpp
-    example_init();
+    game_init();
 
 #ifdef EMSCRIPTEN
     /*
@@ -79,13 +76,6 @@ void run()
     See emscripten_set_main_loop in the EMSCRIPTEN section below
     */
     return;
-#endif
-
-
-
-#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
-    // On iPhone mainloop is called automatically by CADisplayLink, see int main() below
-    //return;
 #endif
 
     // This is the main game loop.
@@ -109,7 +99,7 @@ void run()
     */
 
     // See example.cpp for the shutdown function implementation
-    example_destroy();
+    game_destroy();
 
 
     //renderer.cleanup();
@@ -124,14 +114,6 @@ void run()
     ObjectBase::__stopTracingLeaks();
     //end
 }
-
-#ifdef __S3E__
-int main(int argc, char* argv[])
-{
-    run();
-    return 0;
-}
-#endif
 
 
 #ifdef OXYGINE_SDL
@@ -149,10 +131,6 @@ extern "C"
 
         run();
 
-#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
-        // If parameter 2 is set to 1, refresh rate will be 60 fps, 2 - 30 fps, 3 - 15 fps.
-        //SDL_iPhoneSetAnimationCallback(core::getWindow(), 1, one, nullptr);
-#endif
 
 #if EMSCRIPTEN
         emscripten_set_main_loop(oneEmsc, 0, 0);
