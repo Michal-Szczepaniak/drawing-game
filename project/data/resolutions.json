@@ -1,0 +1,11 @@
+[
+	{
+		"name": "hd",
+		"resolutions": [
+			1280,
+			720
+		],
+		"display": "1280x720",
+		"fontSize": 30
+	},
+]

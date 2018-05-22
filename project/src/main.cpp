@@ -1,9 +1,20 @@
 #include "core/oxygine.h"
+#include "core/file.h"
 #include "Stage.h"
 #include "DebugActor.h"
-#include "game.h"
+#include "Game.h"
+#include "Configuration.h"
 
 using namespace oxygine;
+
+namespace oxygine
+{
+	namespace file
+	{
+		extern bool _fsInitialized;
+	}
+}
+
 
 // This function is called each frame
 int mainloop()
@@ -39,9 +50,20 @@ void run()
 {
     ObjectBase::__startTracingLeaks();
 
+#if RELEASE
+    oxygine::file::_fsInitialized = true;
+    oxygine::file::wfs().setPath("/usr/share/Graphie");
+    oxygine::file::mount(&oxygine::file::wfs());
+#endif
+
     // Initialize Oxygine's internal stuff
     core::init_desc desc;
-    desc.title = "Oxygine Application";
+    desc.title = "Graphie";
+#if RELEASE
+    desc.companyName = "Mister_Magister";
+    desc.appName = "Graphie";
+#endif
+    desc.vsync = true;
 
 #if OXYGINE_SDL || OXYGINE_EMSCRIPTEN
     // The initial window size can be set up here on SDL builds
@@ -53,13 +75,26 @@ void run()
     game_preinit();
     core::init(&desc);
 
+    Json::Value* resolutions = Configuration::getInstance().getResolutions();
+
+    int best = 0,cur = core::getDisplaySize().y;
+    for( Json::Value::const_iterator itr = resolutions->begin() ; itr != resolutions->end() ; itr++ ) {
+    	if(abs((*resolutions)[itr.index()]["resolutions"][0].asInt() - cur) < abs((*resolutions)[best]["resolutions"][0].asInt() - cur)) best = itr.index();
+    }
+
+    log::messageln("best resolution: %d x %d", (*resolutions)[best]["resolutions"][0].asInt(), (*resolutions)[best]["resolutions"][1].asInt());
+    Configuration::getInstance().setResolutions(best);
+
     // Create the stage. Stage is a root node for all updateable and drawable objects
     Stage::instance = new Stage(true);
+
     Point size = core::getDisplaySize();
 #if __SAILFISHOS__
-	size.x = size.y;
-	size.y = core::getDisplaySize().x;
-    getStage()->setPosition(size.y, 0);
+	size.x = (*resolutions)[best]["resolutions"][0].asInt();
+	size.y = (*resolutions)[best]["resolutions"][1].asInt();
+    log::messageln("scale %f %f", (float)core::getDisplaySize().x / size.y, (float)core::getDisplaySize().y / size.x);
+    getStage()->setScale((float)core::getDisplaySize().x / size.y, (float)core::getDisplaySize().y / size.x);
+    getStage()->setPosition((float)core::getDisplaySize().x, 0);
     getStage()->setRotationDegrees(90.0f);
 #endif
     getStage()->setSize(size);
@@ -129,8 +164,11 @@ extern "C"
     int main(int argc, char* argv[])
     {
 
-        run();
+#if __SAILFISHOS__
+    	SDL_SetHint(SDL_HINT_QTWAYLAND_CONTENT_ORIENTATION, "landscape");
+#endif
 
+    	run();
 
 #if EMSCRIPTEN
         emscripten_set_main_loop(oneEmsc, 0, 0);

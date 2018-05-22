@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<resources>
+	<set path = "images_hd" />
+	<atlas>
+		<image file="back_button.png"/>
+		<image file="brush_eraser.png"/>
+		<image file="brush.png"/>
+	</atlas>
+	
+	<set path = "images_hd/mainmenu" />
+	<atlas>
+		<image file="mainmenu_button.png"/>
+		<image file="mainmenu_about_button.png"/>
+	</atlas>
+
+	<set path = "images_hd/settings" />
+	<atlas>
+		<image file="settings_button.png"/>
+	</atlas>
+	
+	<set path = "images_hd/chapter" />
+	<atlas>
+		<image file="chapter_button.png"/>
+		<image file="chapter_switch_button.png"/>
+		<image file="chapter_random_button.png"/>
+	</atlas>
+	
+	<set path = "images_hd/level" />
+	<atlas>
+		<image file="level_button.png"/>
+	</atlas>
+
+	<set path = "fonts" />
+	<ftfont file="Roboto-Regular.ttf" />
+	<ftfont file="Roboto-Light.ttf" />
+	<ftfont file="Roboto-Bold.ttf" />
+</resources>

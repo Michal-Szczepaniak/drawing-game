@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<resources>
+	<set path = "music" />	
+
+ 	<sound file="8bit airship.ogg" />
+ 	<sound file="mushroom dance.ogg" />
+
+</resources>

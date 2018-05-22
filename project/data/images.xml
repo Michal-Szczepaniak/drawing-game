@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<resources>
+	<set path = "chapters/tutorial/1" />
+	<atlas>
+		<image file="tutorial_1_1.png"/>
+		<image file="tutorial_1_2.png"/>
+	</atlas>
+</resources>

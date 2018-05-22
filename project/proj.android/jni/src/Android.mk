@@ -4,25 +4,13 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := main
 
 #SDK_ROOT points to folder with SDL and oxygine-framework
-LOCAL_SRC_FILES := ../../../../..//SDL/src/main/android/SDL_android_main.c
+LOCAL_SRC_FILES := ../../../../SDL/src/main/android/SDL_android_main.c
 
 src := ../../../src
 
-LOCAL_SRC_FILES += $(src)/Enemy.cpp\
-	$(src)/Game.cpp\
-	$(src)/GameMenu.cpp\
-	$(src)/GameScene.cpp\
-	$(src)/Joystick.cpp\
-	$(src)/MainMenuScene.cpp\
-	$(src)/MyButton.cpp\
-	$(src)/Player.cpp\
-	$(src)/Rocket.cpp\
-	$(src)/MyScene.cpp\
-	$(src)/Unit.cpp\
-	$(src)/example.cpp\
+LOCAL_SRC_FILES += $(src)/game.cpp\
 	$(src)/main.cpp\
-	$(src)/res.cpp\
-
+	$(src)/mainActor.cpp\
 
 LOCAL_STATIC_LIBRARIES := oxygine-flow_static oxygine-sound_static oxygine-framework_static oxygine-freetype_static freetype2_static
 LOCAL_SHARED_LIBRARIES := SDL2
