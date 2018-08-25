@@ -149,11 +149,11 @@ void LevelScreen::levelButtonClicked(Event* ev) {
 	Json::Value* level = (Json::Value*)ev->currentTarget->getUserData();
 	((GameScreen*) ScreenSwitcher::getInstance().getScreen("GameScreen"))->setLevel(level);
 	ScreenSwitcher::getInstance().switchScreen("GameScreen");
-	log::messageln("level button clicked");
+	logs::messageln("level button clicked");
 }
 
 void LevelScreen::backButtonClicked(Event* ev) {
-	log::messageln("back button clicked");
+	logs::messageln("back button clicked");
 	ScreenSwitcher::getInstance().switchScreen("ChapterScreen");
 }
 
@@ -167,5 +167,5 @@ void LevelScreen::setChapter(Json::Value* chapter) {
 		i++;
 	}
 
-	log::messageln("%s", (*chapter).toStyledString().c_str());
+	logs::messageln("%s", (*chapter).toStyledString().c_str());
 }

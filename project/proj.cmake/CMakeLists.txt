@@ -19,8 +19,6 @@ include_directories(${OXYGINE_FREETYPE_INCLUDE_DIRS})
 include_directories(../../oxygine-freetype/src)
 link_directories(${OXYGINE_FREETYPE_LIBRARY_DIRS})
 
-find_package( OpenCV REQUIRED )
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OXYGINE_CXX_FLAGS} ${OXYGINE_FREETYPE_CXX_FLAGS}")
 
 set(SRC ${CMAKE_CURRENT_SOURCE_DIR}/../src)
@@ -52,7 +50,7 @@ if (WIN32) #disable console mode for VC++
 	set_target_properties(Graphie PROPERTIES WIN32_EXECUTABLE TRUE)
 endif(WIN32)
 
-target_link_libraries(Graphie ${OXYGINESOUND_LIBS} oxygine-flow ${OXYGINE_CORE_LIBS} ${OXYGINE_FREETYPE_LIBS} oxygine-freetype ${OpenCV_LIBS})
+target_link_libraries(Graphie ${OXYGINESOUND_LIBS} oxygine-flow ${OXYGINE_CORE_LIBS} ${OXYGINE_FREETYPE_LIBS} oxygine-freetype)
 
 
 if (EMSCRIPTEN)

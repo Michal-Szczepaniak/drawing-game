@@ -1,7 +1,7 @@
 #include "MainMenu.h"
 #include "ScreenSwitcher.h"
 
-#include "core/gl/oxgl.h"
+#include "oxygine/core/gl/oxgl.h"
 #include "Game.h"
 using namespace oxygine;
 
@@ -17,7 +17,7 @@ void MainMenu::setupStartButton() {
     button->setResAnim(::getGameResources()->getResAnim("mainmenu_button"));
 
 //    button->setSize(getStage()->getSize().x / 3.31, getStage()->getSize().y / 8.5);
-    log::messageln("button scale: %f", getStage()->getScale().x);
+    logs::messageln("button scale: %f", getStage()->getScale().x);
 //    button->setScale(getStage()->getScale());
     Vector2 pos(getStage()->getSize().x / 2 - button->getSize().x / 2, getStage()->getSize().y / 2 - button->getSize().y / 2 - getStage()->getSize().y / 35);
     button->setPosition(pos);
@@ -147,15 +147,15 @@ void MainMenu::setupAboutButton() {
 }
 
 void MainMenu::startButtonClicked(Event* event) {
-	log::messageln("start button clicked");
+	logs::messageln("start button clicked");
 	ScreenSwitcher::getInstance().switchScreen("ChapterScreen");
 }
 
 void MainMenu::settingsButtonClicked(Event* event) {
-	log::messageln("settings button clicked");
+	logs::messageln("settings button clicked");
 	ScreenSwitcher::getInstance().switchScreen("SettingsScreen");
 }
 
 void MainMenu::buttonClicked(Event* event) {
-	log::messageln("button clicked");
+	logs::messageln("button clicked");
 }

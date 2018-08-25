@@ -5,3 +5,4 @@
 oxygine-game/
 project/proj.cmake/build/
 project/proj.sfos/build/
+project/proj.cmake/cmake-build-debug/

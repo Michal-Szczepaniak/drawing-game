@@ -1,7 +1,7 @@
-#include "core/oxygine.h"
-#include "core/file.h"
-#include "Stage.h"
-#include "DebugActor.h"
+#include "oxygine/core/oxygine.h"
+#include "oxygine/core/file.h"
+#include "ox/Stage.hpp"
+#include "ox/DebugActor.hpp"
 #include "Game.h"
 #include "Configuration.h"
 
@@ -82,7 +82,7 @@ void run()
     	if(abs((*resolutions)[itr.index()]["resolutions"][0].asInt() - cur) < abs((*resolutions)[best]["resolutions"][0].asInt() - cur)) best = itr.index();
     }
 
-    log::messageln("best resolution: %d x %d", (*resolutions)[best]["resolutions"][0].asInt(), (*resolutions)[best]["resolutions"][1].asInt());
+    logs::messageln("best resolution: %d x %d", (*resolutions)[best]["resolutions"][0].asInt(), (*resolutions)[best]["resolutions"][1].asInt());
     Configuration::getInstance().setResolutions(best);
 
     // Create the stage. Stage is a root node for all updateable and drawable objects

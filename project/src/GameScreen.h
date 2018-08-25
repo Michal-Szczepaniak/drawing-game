@@ -34,10 +34,6 @@ private:
 	void setupImage();
 	void setupControls();
 
-    void finishButtonClicked(Event* event);
-    void onDown(Event* ev);
-    void onMove(Event* ev);
-
     int countRepeatTimes(Vector2 oldV, Vector2 newV);
     void dumpToFile(spNativeTexture texture, std::string filename);
 };

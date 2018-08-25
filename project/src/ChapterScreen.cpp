@@ -134,7 +134,7 @@ void ChapterScreen::setupChapterButtons() {
 }
 
 void ChapterScreen::backButtonClicked(Event* ev) {
-	log::messageln("back button clicked");
+	logs::messageln("back button clicked");
 	ScreenSwitcher::getInstance().switchScreen("MainMenu");
 }
 

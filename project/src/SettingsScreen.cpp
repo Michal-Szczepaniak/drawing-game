@@ -124,12 +124,12 @@ void SettingsScreen::setupMuteButton() {
 }
 
 void SettingsScreen::backButtonClicked(Event* ev) {
-	log::messageln("back button clicked");
+	logs::messageln("back button clicked");
 	ScreenSwitcher::getInstance().switchScreen("MainMenu");
 }
 
 void SettingsScreen::languagesButtonClicked(Event* ev) {
-	log::messageln("settings button clicked");
+	logs::messageln("settings button clicked");
 	Json::Value* languages = Configuration::getInstance().getLanguages();
 
 	if(languages->size() < 2) return;
@@ -152,7 +152,7 @@ void SettingsScreen::languagesButtonClicked(Event* ev) {
 }
 
 void SettingsScreen::muteButtonClicked(Event* ev) {
-	log::messageln("mute button clicked");
+	logs::messageln("mute button clicked");
 
 	Json::Value* settings = Configuration::getInstance().getSettings();
 	Json::Value* translations= Configuration::getInstance().getTranslations();
