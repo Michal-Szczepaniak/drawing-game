@@ -3,7 +3,7 @@
 #include "ox/Stage.hpp"
 #include "ox/DebugActor.hpp"
 #include "Game.h"
-#include "Configuration.h"
+#include "Helpers/Configuration.h"
 
 using namespace oxygine;
 

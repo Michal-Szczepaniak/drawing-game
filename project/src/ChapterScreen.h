@@ -20,21 +20,19 @@ public:
 
 private:
 	int currentChapter;
-	spSprite    _backButton, _nextButton, _prevButton, _randomButton;
-	spSprite    _chapterButton1, _chapterButton2, _chapterButton3, _chapterButton4, _chapterButton5, _chapterButton6;
+	spSprite    _backButton, _nextButton, _prevButton;
+	spSprite    _chapterButton1, _chapterButton2, _chapterButton3, _chapterButton4, _chapterButton5, _chapterButton6, _chapterButton7, _chapterButton8;
 	spTextField _tittle;
 
 	void setupBackButton();
 	void setupChapterButtons();
 	void setupTittle();
 	void setupSwitchButtons();
-	void setupRandomButton();
 
 	void backButtonClicked(Event* ev);
 	void nextButtonClicked(Event* ev);
 	void prevButtonClicked(Event* ev);
 	void chapterButtonClicked(Event* ev);
-	void randomButtonClicked(Event* ev);
 };
 
 typedef oxygine::intrusive_ptr<ChapterScreen> spChapterScreen;

@@ -32,17 +32,15 @@ set(SOURCES
 	${SRC}/GameScreen.h
 	${SRC}/ChapterScreen.cpp 
 	${SRC}/ChapterScreen.h
-	${SRC}/LevelScreen.cpp 
-	${SRC}/LevelScreen.h
 	${SRC}/SettingsScreen.cpp 
 	${SRC}/SettingsScreen.h
-	${SRC}/ScreenSwitcher.cpp
-	${SRC}/ScreenSwitcher.h
-	${SRC}/Configuration.cpp
-	${SRC}/Configuration.h
 	${SRC}/MusicPlayer.cpp
 	${SRC}/MusicPlayer.h
-	)
+	${SRC}/Helpers/ScreenSwitcher.cpp
+	${SRC}/Helpers/ScreenSwitcher.h
+	${SRC}/Helpers/Configuration.cpp
+	${SRC}/Helpers/Configuration.h
+		../src/Helpers/GridView.cpp ../src/Helpers/GridView.h)
 
 add_executable(Graphie ${SOURCES})
 

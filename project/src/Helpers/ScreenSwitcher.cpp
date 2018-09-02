@@ -7,11 +7,10 @@
 
 #include "ScreenSwitcher.h"
 
-#include "MainMenu.h"
-#include "GameScreen.h"
-#include "ChapterScreen.h"
-#include "LevelScreen.h"
-#include "SettingsScreen.h"
+#include "../MainMenu.h"
+#include "../GameScreen.h"
+#include "../ChapterScreen.h"
+#include "../SettingsScreen.h"
 
 ScreenSwitcher::ScreenSwitcher() {
 
@@ -31,10 +30,6 @@ void ScreenSwitcher::registerScreens() {
 	screens.push_back(std::make_pair("ChapterScreen", new ChapterScreen()));
 	getStage()->addChild(getScreen("ChapterScreen"));
 	getScreen("ChapterScreen")->setVisible(false);
-
-	screens.push_back(std::make_pair("LevelScreen", new LevelScreen()));
-	getStage()->addChild(getScreen("LevelScreen"));
-	getScreen("LevelScreen")->setVisible(false);
 
 	screens.push_back(std::make_pair("SettingsScreen", new SettingsScreen()));
 	getStage()->addChild(getScreen("SettingsScreen"));

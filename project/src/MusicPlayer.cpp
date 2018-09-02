@@ -7,7 +7,7 @@
 
 #include "MusicPlayer.h"
 #include "Game.h"
-#include "Configuration.h"
+#include "Helpers/Configuration.h"
 #include "sound/SoundSystem.h"
 #include "sound/SoundInstance.h"
 #include <stdlib.h>

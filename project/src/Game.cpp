@@ -1,6 +1,6 @@
-#include "ScreenSwitcher.h"
+#include "Helpers/ScreenSwitcher.h"
 #include "ResFontFT.h"
-#include "Configuration.h"
+#include "Helpers/Configuration.h"
 #include "sound/SoundPlayer.h"
 #include "sound/SoundSystem.h"
 #include "MusicPlayer.h"

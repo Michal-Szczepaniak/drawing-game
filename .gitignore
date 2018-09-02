@@ -2,6 +2,8 @@
 .cproject
 .project
 .settings/
+.idea/
+.directory
 oxygine-game/
 project/proj.cmake/build/
 project/proj.sfos/build/

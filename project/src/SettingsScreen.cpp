@@ -7,8 +7,8 @@
 
 #include "SettingsScreen.h"
 #include "Game.h"
-#include "ScreenSwitcher.h"
-#include "Configuration.h"
+#include "Helpers/ScreenSwitcher.h"
+#include "Helpers/Configuration.h"
 
 SettingsScreen::SettingsScreen() {
 

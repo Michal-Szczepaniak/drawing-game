@@ -1,5 +1,5 @@
 #include "MainMenu.h"
-#include "ScreenSwitcher.h"
+#include "Helpers/ScreenSwitcher.h"
 
 #include "oxygine/core/gl/oxgl.h"
 #include "Game.h"
