@@ -4,27 +4,50 @@
 
 #include "GridView.h"
 
+GridView::GridView(float width, float height, float x, float y, unsigned int rows,
+                   unsigned int cols) {
+    this->width = width;
+    this->height = height;
+    this->x = x;
+    this->y = y;
+    this->rows = rows;
+    this->cols = cols;
+    recalculateRowSize();
+}
+
 GridView *GridView::setRowsAndCols(unsigned int rows, unsigned int cols) {
     this->rows = rows;
     this->cols = cols;
+    recalculateRowSize();
     return this;
 }
 
-GridView *GridView::setSize(unsigned int width, unsigned int height) {
+GridView *GridView::setSize(float width, float height) {
     this->width = width;
     this->height = height;
+    recalculateRowSize();
     return this;
 }
 
-GridView *GridView::setPosition(unsigned int x, unsigned int y) {
+GridView *GridView::setPosition(float x, float y) {
     this->x = x;
     this->y = y;
     return this;
 }
 
 GridView *GridView::addActor(Actor *actor) {
-    if(actor != nullptr)
-        actors.push_back(actor);
+    if(actor != nullptr) {
+        unsigned long elements = actors.size();
+        unsigned long insertCol = elements%cols;
+        unsigned long insertRow = elements/cols;
+
+        if (insertRow < rows) {
+            actor->setX(insertCol * _cellWidth);
+            actor->setY(insertRow * _cellHeight);
+
+            actors.push_back(actor);
+        }
+    }
     return this;
 }
 
@@ -34,6 +57,7 @@ unsigned int GridView::getRows() const {
 
 GridView* GridView::setRows(unsigned int rows) {
     this->rows = rows;
+    recalculateRowSize();
     return this;
 }
 
@@ -43,41 +67,49 @@ unsigned int GridView::getCols() const {
 
 GridView* GridView::setCols(unsigned int cols) {
     this->cols = cols;
+    recalculateRowSize();
     return this;
 }
 
-unsigned int GridView::getWidth() const {
+float GridView::getWidth() const {
     return width;
 }
 
-GridView* GridView::setWidth(unsigned int width) {
+GridView* GridView::setWidth(float width) {
     this->width = width;
+    recalculateRowSize();
     return this;
 }
 
-unsigned int GridView::getHeight() const {
+float GridView::getHeight() const {
     return height;
 }
 
-GridView* GridView::setHeight(unsigned int height) {
+GridView* GridView::setHeight(float height) {
     this->height = height;
+    recalculateRowSize();
     return this;
 }
 
-unsigned int GridView::getX() const {
+float GridView::getX() const {
     return x;
 }
 
-GridView* GridView::setX(unsigned int x) {
+GridView* GridView::setX(float x) {
     this->x = x;
     return this;
 }
 
-unsigned int GridView::getY() const {
+float GridView::getY() const {
     return y;
 }
 
-GridView* GridView::setY(unsigned int y) {
+GridView* GridView::setY(float y) {
     this->y = y;
     return this;
+}
+
+void GridView::recalculateRowSize() {
+    _cellWidth = width/cols;
+    _cellHeight = height/rows;
 }
