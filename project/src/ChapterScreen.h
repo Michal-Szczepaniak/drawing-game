@@ -10,6 +10,7 @@
 
 #include "oxygine-framework.h"
 #include <functional>
+#include "Helpers/GridView.h"
 
 using namespace oxygine;
 
@@ -23,6 +24,7 @@ private:
 	spSprite    _backButton, _nextButton, _prevButton;
 	spSprite    _chapterButton1, _chapterButton2, _chapterButton3, _chapterButton4, _chapterButton5, _chapterButton6, _chapterButton7, _chapterButton8;
 	spTextField _tittle;
+	GridView*	gridView;
 
 	void setupBackButton();
 	void setupChapterButtons();

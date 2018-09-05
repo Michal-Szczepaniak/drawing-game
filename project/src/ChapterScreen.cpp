@@ -13,6 +13,8 @@
 ChapterScreen::ChapterScreen() {
 	currentChapter = 0;
 
+	gridView = new GridView();
+
 	// Setup buttons
 	setupBackButton();
 	setupChapterButtons();
@@ -66,6 +68,8 @@ void ChapterScreen::setupTittle() {
 }
 
 void ChapterScreen::setupChapterButtons() {
+
+
     spSprite button = initActor(new Sprite,
     		arg_resAnim = ::getGameResources()->getResAnim("chapter_button"),
 			arg_attachTo = this,
