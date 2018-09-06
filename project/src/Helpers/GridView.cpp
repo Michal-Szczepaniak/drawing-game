@@ -12,20 +12,20 @@ GridView::GridView(float width, float height, float x, float y, unsigned int row
     this->y = y;
     this->rows = rows;
     this->cols = cols;
-    recalculateRowSize();
+    recalculateRows();
 }
 
 GridView *GridView::setRowsAndCols(unsigned int rows, unsigned int cols) {
     this->rows = rows;
     this->cols = cols;
-    recalculateRowSize();
+    recalculateRows();
     return this;
 }
 
 GridView *GridView::setSize(float width, float height) {
     this->width = width;
     this->height = height;
-    recalculateRowSize();
+    recalculateRows();
     return this;
 }
 
@@ -35,18 +35,10 @@ GridView *GridView::setPosition(float x, float y) {
     return this;
 }
 
-GridView *GridView::addActor(Actor *actor) {
-    if(actor != nullptr) {
-        unsigned long elements = actors.size();
-        unsigned long insertCol = elements%cols;
-        unsigned long insertRow = elements/cols;
-
-        if (insertRow < rows) {
-            actor->setX(insertCol * _cellWidth);
-            actor->setY(insertRow * _cellHeight);
-
-            actors.push_back(actor);
-        }
+GridView *GridView::addActor(spActor actor) {
+    if(actor != NULL && actors.size() < getRows()*getCols()) {
+        actors.push_back(actor);
+        recalculateRows();
     }
     return this;
 }
@@ -57,7 +49,7 @@ unsigned int GridView::getRows() const {
 
 GridView* GridView::setRows(unsigned int rows) {
     this->rows = rows;
-    recalculateRowSize();
+    recalculateRows();
     return this;
 }
 
@@ -67,7 +59,7 @@ unsigned int GridView::getCols() const {
 
 GridView* GridView::setCols(unsigned int cols) {
     this->cols = cols;
-    recalculateRowSize();
+    recalculateRows();
     return this;
 }
 
@@ -77,7 +69,7 @@ float GridView::getWidth() const {
 
 GridView* GridView::setWidth(float width) {
     this->width = width;
-    recalculateRowSize();
+    recalculateRows();
     return this;
 }
 
@@ -87,7 +79,7 @@ float GridView::getHeight() const {
 
 GridView* GridView::setHeight(float height) {
     this->height = height;
-    recalculateRowSize();
+    recalculateRows();
     return this;
 }
 
@@ -109,7 +101,20 @@ GridView* GridView::setY(float y) {
     return this;
 }
 
-void GridView::recalculateRowSize() {
+void GridView::recalculateRows() {
     _cellWidth = width/cols;
     _cellHeight = height/rows;
+
+    unsigned long element = 0;
+    for (const auto &actor : actors) {
+        unsigned long insertCol = element%cols;
+        unsigned long insertRow = element/cols;
+        float paddingX = _cellWidth/2 - actor->getWidth()/2;
+        float paddingY = _cellHeight/2 - actor->getHeight()/2;
+
+        actor->setX(insertCol * _cellWidth + paddingX);
+        actor->setY(insertRow * _cellHeight + paddingY);
+
+        element++;
+    }
 }

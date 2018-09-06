@@ -33,7 +33,7 @@ public:
     GridView* setY(float y);
     GridView* setPosition(float x, float y);
 
-    GridView* addActor(Actor* actor);
+    GridView* addActor(spActor actor);
 protected:
     unsigned int rows;
     unsigned int cols;
@@ -45,9 +45,9 @@ protected:
     float _cellWidth;
     float _cellHeight;
 
-    std::vector<Actor*> actors;
+    std::vector<spActor> actors;
 
-    void recalculateRowSize();
+    void recalculateRows();
 };
 
 
