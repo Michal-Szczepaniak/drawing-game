@@ -36,7 +36,7 @@ GridView *GridView::setPosition(float x, float y) {
 }
 
 GridView *GridView::addActor(spActor actor) {
-    if(actor != NULL && actors.size() < getRows()*getCols()) {
+    if(actors.size() < getRows()*getCols()) {
         actors.push_back(actor);
         recalculateRows();
     }
@@ -112,8 +112,8 @@ void GridView::recalculateRows() {
         float paddingX = _cellWidth/2 - actor->getWidth()/2;
         float paddingY = _cellHeight/2 - actor->getHeight()/2;
 
-        actor->setX(insertCol * _cellWidth + paddingX);
-        actor->setY(insertRow * _cellHeight + paddingY);
+        actor->setX(x + (insertCol * _cellWidth) + paddingX);
+        actor->setY(y + (insertRow * _cellHeight) + paddingY);
 
         element++;
     }

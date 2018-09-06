@@ -16,12 +16,12 @@ ChapterScreen::ChapterScreen() {
 
     // Setup buttons
     setupBackButton();
-    setupChapterButtons();
     setupTittle();
-    setupSwitchButtons();
+	setupSwitchButtons();
 
-    gridView = new GridView(4, 2, getStage()->getWidth(), getStage()->getHeight()/2, 0,
-                            static_cast<unsigned int>(_backButton->getY() + _backButton->getHeight()));
+	gridView = new GridView(getStage()->getWidth(), getStage()->getHeight()/2, 0,
+							getStage()->getHeight()/4, 2, 4);
+	setupChapterButtons();
 }
 
 void ChapterScreen::setupBackButton() {
@@ -66,7 +66,7 @@ void ChapterScreen::setupTittle() {
 	text->setStyle(style);
 	text->setText((*Configuration::getInstance().getLevels())[currentChapter]["name"].asCString());
 
-	_tittle = text;
+	_title = text;
 }
 
 void ChapterScreen::setupChapterButtons() {
@@ -86,8 +86,9 @@ void ChapterScreen::setupChapterButtons() {
 			arg_userData = &(*Configuration::getInstance().getLevels())[currentChapter]["images"][1]
     		);
     button2->addEventListener(TouchEvent::CLICK, CLOSURE(this, &ChapterScreen::chapterButtonClicked));
-    button2->setPosition(getStage()->getSize().x/2 - button2->getSize().x/2, getStage()->getSize().y/2 - getStage()->getSize().y/14 - button2->getSize().y);
+//    button2->setPosition(getStage()->getSize().x/2 - button2->getSize().x/2, getStage()->getSize().y/2 - getStage()->getSize().y/14 - button2->getSize().y);
     _chapterButton2 = button;
+	gridView->addActor(_chapterButton2);
 
     spSprite button3 = initActor(new Sprite,
     		arg_resAnim = ::getGameResources()->getResAnim("chapter_button"),
@@ -95,8 +96,9 @@ void ChapterScreen::setupChapterButtons() {
 			arg_userData = &(*Configuration::getInstance().getLevels())[currentChapter]["images"][2]
     		);
     button3->addEventListener(TouchEvent::CLICK, CLOSURE(this, &ChapterScreen::chapterButtonClicked));
-    button3->setPosition(getStage()->getSize().x/3 * 2 + getStage()->getSize().x/23, getStage()->getSize().y/2 - getStage()->getSize().y/14 - button3->getSize().y);
+//    button3->setPosition(getStage()->getSize().x/3 * 2 + getStage()->getSize().x/23, getStage()->getSize().y/2 - getStage()->getSize().y/14 - button3->getSize().y);
     _chapterButton3 = button;
+	gridView->addActor(_chapterButton3);
 
     spSprite button4 = initActor(new Sprite,
     		arg_resAnim = ::getGameResources()->getResAnim("chapter_button"),
@@ -104,8 +106,9 @@ void ChapterScreen::setupChapterButtons() {
 			arg_userData = &(*Configuration::getInstance().getLevels())[currentChapter]["images"][3]
     		);
     button4->addEventListener(TouchEvent::CLICK, CLOSURE(this, &ChapterScreen::chapterButtonClicked));
-	button4->setPosition(getStage()->getSize().x/3 - getStage()->getSize().x/23 - button4->getSize().x, getStage()->getSize().y/2 + getStage()->getSize().y/14);
+//	button4->setPosition(getStage()->getSize().x/3 - getStage()->getSize().x/23 - button4->getSize().x, getStage()->getSize().y/2 + getStage()->getSize().y/14);
     _chapterButton4 = button4;
+	gridView->addActor(_chapterButton4);
 
     spSprite button5 = initActor(new Sprite,
     		arg_resAnim = ::getGameResources()->getResAnim("chapter_button"),
@@ -113,8 +116,9 @@ void ChapterScreen::setupChapterButtons() {
 			arg_userData = &(*Configuration::getInstance().getLevels())[currentChapter]["images"][4]
     		);
     button5->addEventListener(TouchEvent::CLICK, CLOSURE(this, &ChapterScreen::chapterButtonClicked));
-    button5->setPosition(getStage()->getSize().x/2 - button5->getSize().x/2, getStage()->getSize().y/2 + getStage()->getSize().y/14);
+//    button5->setPosition(getStage()->getSize().x/2 - button5->getSize().x/2, getStage()->getSize().y/2 + getStage()->getSize().y/14);
     _chapterButton5 = button5;
+	gridView->addActor(_chapterButton5);
 
     spSprite button6 = initActor(new Sprite,
     		arg_resAnim = ::getGameResources()->getResAnim("chapter_button"),
@@ -122,8 +126,9 @@ void ChapterScreen::setupChapterButtons() {
 			arg_userData = &(*Configuration::getInstance().getLevels())[currentChapter]["images"][5]
     		);
     button6->addEventListener(TouchEvent::CLICK, CLOSURE(this, &ChapterScreen::chapterButtonClicked));
-    button6->setPosition(getStage()->getSize().x/3 * 2 + getStage()->getSize().x/23, getStage()->getSize().y/2 + getStage()->getSize().y/14);
+//    button6->setPosition(getStage()->getSize().x/3 * 2 + getStage()->getSize().x/23, getStage()->getSize().y/2 + getStage()->getSize().y/14);
     _chapterButton6 = button6;
+	gridView->addActor(_chapterButton6);
 
     spSprite button7 = initActor(new Sprite,
             arg_resAnim = ::getGameResources()->getResAnim("chapter_button"),
@@ -131,8 +136,9 @@ void ChapterScreen::setupChapterButtons() {
             arg_userData = &(*Configuration::getInstance().getLevels())[currentChapter]["images"][6]
     );
     button7->addEventListener(TouchEvent::CLICK, CLOSURE(this, &ChapterScreen::chapterButtonClicked));
-    button7->setPosition(getStage()->getSize().x/3 * 2 + getStage()->getSize().x/23, getStage()->getSize().y/2 + getStage()->getSize().y/14);
+//    button7->setPosition(getStage()->getSize().x/3 * 2 + getStage()->getSize().x/23, getStage()->getSize().y/2 + getStage()->getSize().y/14);
     _chapterButton7 = button7;
+	gridView->addActor(_chapterButton7);
 
     spSprite button8 = initActor(new Sprite,
              arg_resAnim = ::getGameResources()->getResAnim("chapter_button"),
@@ -140,8 +146,9 @@ void ChapterScreen::setupChapterButtons() {
              arg_userData = &(*Configuration::getInstance().getLevels())[currentChapter]["images"][7]
     );
     button8->addEventListener(TouchEvent::CLICK, CLOSURE(this, &ChapterScreen::chapterButtonClicked));
-    button8->setPosition(getStage()->getSize().x/3 * 2 + getStage()->getSize().x/23, getStage()->getSize().y/2 + getStage()->getSize().y/14);
+//    button8->setPosition(getStage()->getSize().x/3 * 2 + getStage()->getSize().x/23, getStage()->getSize().y/2 + getStage()->getSize().y/14);
     _chapterButton8 = button8;
+	gridView->addActor(_chapterButton8);
 }
 
 void ChapterScreen::backButtonClicked(Event* ev) {
@@ -166,7 +173,7 @@ void ChapterScreen::nextButtonClicked(Event* ev) {
 
     _prevButton->setVisible(currentChapter != 0);
 
-	_tittle->setText((*chapter)["name"].asCString());
+	_title->setText((*chapter)["name"].asCString());
 
 	_chapterButton1->setUserData(&(*chapter)["images"][0]);
 	_chapterButton2->setUserData(&(*chapter)["images"][1]);
@@ -187,7 +194,7 @@ void ChapterScreen::prevButtonClicked(Event* ev) {
 
     _prevButton->setVisible(currentChapter != 0);
 
-	_tittle->setText((*chapter)["name"].asCString());
+	_title->setText((*chapter)["name"].asCString());
 
 	_chapterButton1->setUserData(&(*chapter)["images"][0]);
 	_chapterButton2->setUserData(&(*chapter)["images"][1]);

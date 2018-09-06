@@ -23,7 +23,7 @@ private:
 	int currentChapter;
 	spSprite    _backButton, _nextButton, _prevButton;
 	spSprite    _chapterButton1, _chapterButton2, _chapterButton3, _chapterButton4, _chapterButton5, _chapterButton6, _chapterButton7, _chapterButton8;
-	spTextField _tittle;
+	spTextField _title;
 	GridView*	gridView;
 
 	void setupBackButton();
