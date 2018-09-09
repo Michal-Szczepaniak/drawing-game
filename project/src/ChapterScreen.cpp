@@ -9,6 +9,7 @@
 #include "Helpers/Configuration.h"
 #include "Game.h"
 #include "Helpers/ScreenSwitcher.h"
+#include "Helpers/Theme.h"
 
 ChapterScreen::ChapterScreen() {
 	currentChapter = 0;
@@ -19,7 +20,7 @@ ChapterScreen::ChapterScreen() {
     setupTittle();
 	setupSwitchButtons();
 
-	gridView = new GridView(getStage()->getWidth(), getStage()->getHeight()/2, 0,
+	gridView = new GridView(getStage()->getWidth() - Theme::getInstance(), getStage()->getHeight()/2, 0,
 							getStage()->getHeight()/4, 2, 4);
 	setupChapterButtons();
 }
@@ -87,7 +88,7 @@ void ChapterScreen::setupChapterButtons() {
     		);
     button2->addEventListener(TouchEvent::CLICK, CLOSURE(this, &ChapterScreen::chapterButtonClicked));
 //    button2->setPosition(getStage()->getSize().x/2 - button2->getSize().x/2, getStage()->getSize().y/2 - getStage()->getSize().y/14 - button2->getSize().y);
-    _chapterButton2 = button;
+    _chapterButton2 = button2;
 	gridView->addActor(_chapterButton2);
 
     spSprite button3 = initActor(new Sprite,
@@ -97,7 +98,7 @@ void ChapterScreen::setupChapterButtons() {
     		);
     button3->addEventListener(TouchEvent::CLICK, CLOSURE(this, &ChapterScreen::chapterButtonClicked));
 //    button3->setPosition(getStage()->getSize().x/3 * 2 + getStage()->getSize().x/23, getStage()->getSize().y/2 - getStage()->getSize().y/14 - button3->getSize().y);
-    _chapterButton3 = button;
+    _chapterButton3 = button3;
 	gridView->addActor(_chapterButton3);
 
     spSprite button4 = initActor(new Sprite,
@@ -157,6 +158,7 @@ void ChapterScreen::backButtonClicked(Event* ev) {
 }
 
 void ChapterScreen::chapterButtonClicked(Event* ev) {
+	logs::messageln("chapter button clicked %f %f", _chapterButton1->getX(), _chapterButton2->getY());
 	Json::Value* chapter = (Json::Value*)ev->currentTarget->getUserData();
 //	((LevelScreen*)ScreenSwitcher::getInstance().getScreen("LevelScreen"))->setChapter(chapter);
 //	ScreenSwitcher::getInstance().switchScreen("LevelScreen");
