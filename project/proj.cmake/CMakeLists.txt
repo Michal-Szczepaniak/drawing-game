@@ -40,7 +40,10 @@ set(SOURCES
 	${SRC}/Helpers/ScreenSwitcher.h
 	${SRC}/Helpers/Configuration.cpp
 	${SRC}/Helpers/Configuration.h
-		../src/Helpers/GridView.cpp ../src/Helpers/GridView.h ../src/Helpers/Theme.cpp ../src/Helpers/Theme.h)
+	${SRC}/Helpers/GridView.cpp
+	${SRC}/Helpers/GridView.h
+	${SRC}/Helpers/Theme.cpp
+	${SRC}/Helpers/Theme.h)
 
 add_executable(Graphie ${SOURCES})
 

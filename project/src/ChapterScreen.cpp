@@ -20,7 +20,7 @@ ChapterScreen::ChapterScreen() {
     setupTittle();
 	setupSwitchButtons();
 
-	gridView = new GridView(getStage()->getWidth() - Theme::getInstance(), getStage()->getHeight()/2, 0,
+	gridView = new GridView(getStage()->getWidth() - (Theme::getPaddingLarge()*4), getStage()->getHeight()/2, Theme::getPaddingLarge()*2,
 							getStage()->getHeight()/4, 2, 4);
 	setupChapterButtons();
 }
@@ -29,7 +29,7 @@ void ChapterScreen::setupBackButton() {
     //create button Sprite
     spSprite button = initActor(new Sprite,
     		arg_resAnim = ::getGameResources()->getResAnim("back_button"),
-			arg_pos = getStage()->getSize()/56,
+			arg_pos = Vector2(Theme::getPaddingSmall(), Theme::getPaddingSmall()),
 			arg_attachTo = this,
 			arg_size = Vector2(getStage()->getSize().x /12, getStage()->getSize().x /12)
     		);
@@ -45,7 +45,8 @@ void ChapterScreen::setupSwitchButtons() {
 			arg_visible = false
     		);
     prev->addEventListener(TouchEvent::CLICK, CLOSURE(this, &ChapterScreen::prevButtonClicked));
-	prev->setPosition(getStage()->getSize().x/52, getStage()->getSize().y/2 - prev->getSize().y/2);
+	prev->setX(Theme::getPaddingMedium());
+	Theme::centerVerically(prev);
     _prevButton = prev;
 
     spSprite next = initActor(new Sprite,
@@ -53,11 +54,13 @@ void ChapterScreen::setupSwitchButtons() {
 			arg_attachTo = this
     		);
     next->addEventListener(TouchEvent::CLICK, CLOSURE(this, &ChapterScreen::nextButtonClicked));
-    next->setPosition(getStage()->getSize().x - getStage()->getSize().x/52 - next->getSize().x, getStage()->getSize().y/2 - next->getSize().y/2);
+    next->setX(getStage()->getSize().x - Theme::getPaddingMedium() - next->getSize().x);
+    Theme::centerVerically(next);
     _nextButton = next;
 }
 
 void ChapterScreen::setupTittle() {
+
 	spTextField text = new TextField();
 	text->attachTo(this);
 	text->setPosition(getStage()->getSize().x / 2, getStage()->getSize().y / 18);

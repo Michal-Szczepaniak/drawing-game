@@ -1,24 +1,30 @@
 #ifndef GRAPHIE_THEME_H
 #define GRAPHIE_THEME_H
 
+#include "../Game.h"
+
 class Theme {
 public:
-    static Theme& getInstance()
-    {
-        static Theme instance; // Guaranteed to be destroyed.
-        // Instantiated on first use.
-        return instance;
+    static inline float getPaddingLarge() {
+        return getStage()->getWidth()/30;
     }
-    Theme(Theme const&) = delete;
-    void operator=(Theme const&) = delete;
 
+    static inline float getPaddingMedium() {
+        return getStage()->getWidth()/60;
+    }
 
-    float getPaddingLarge();
-    float getPaddingMedium();
-    float getPaddingSmall();
+    static inline float getPaddingSmall() {
+        return getStage()->getWidth()/100;
+    }
 
-private:
-    Theme();
+    static inline void centerVerically(const spSprite &sprite, const spSprite &target = nullptr) {
+        float height = getStage()->getHeight()/2;
+        if(target.get() != nullptr) {
+            height = target->getHeight()/2;
+        }
+
+        sprite->setPosition(sprite->getX(), height - sprite->getHeight()/2);
+    }
 };
 
 
