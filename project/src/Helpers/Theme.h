@@ -23,7 +23,16 @@ public:
             height = target->getHeight()/2;
         }
 
-        sprite->setPosition(sprite->getX(), height - sprite->getHeight()/2);
+        sprite->setY(height - sprite->getHeight()/2);
+    }
+
+    static inline void centerHorizontally(const spSprite &sprite, const spSprite &target = nullptr) {
+        float width = getStage()->getHeight()/2;
+        if(target.get() != nullptr) {
+            width = target->getWidth()/2;
+        }
+
+        sprite->setX(width - sprite->getWidth()/2);
     }
 };
 
