@@ -37,8 +37,15 @@ void Configuration::save() {
 	file::write("settings.json", s.c_str(), s.size());
 }
 
-Json::Value* Configuration::getLevels() {
-	return &levels;
+std::vector<Chapter> Configuration::getLevels() {
+    std::vector<Chapter> levels;
+    for (const Json::Value &level: this->levels) {
+        Chapter l;
+        l.name = level["name"].asCString();
+        for (const auto &image: level["images"])
+            l.images.emplace_back(image.asCString());
+    }
+	return levels;
 }
 
 Json::Value* Configuration::getLanguages() {

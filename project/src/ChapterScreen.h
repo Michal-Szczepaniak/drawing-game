@@ -27,7 +27,7 @@ private:
 	GridView*	gridView;
 
 	void setupBackButton();
-	void setupChapterButtons();
+	void setupLevelButtons();
 	void setupTittle();
 	void setupSwitchButtons();
 

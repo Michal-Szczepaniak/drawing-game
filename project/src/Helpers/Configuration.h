@@ -10,6 +10,8 @@
 
 #include "oxygine-framework.h"
 #include "json/json.h"
+#include "../Entities/Chapter.h"
+#include <vector>
 
 class Configuration
 {
@@ -23,7 +25,7 @@ public:
 	Configuration(Configuration const&) = delete;
     void operator=(Configuration const&) = delete;
 
-	Json::Value* getLevels();
+	std::vector<Chapter> getLevels();
 	Json::Value* getTranslations();
 	Json::Value* getLanguages();
 	Json::Value* getSettings();
