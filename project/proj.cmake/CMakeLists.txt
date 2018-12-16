@@ -43,7 +43,7 @@ set(SOURCES
 	${SRC}/Helpers/GridView.cpp
 	${SRC}/Helpers/GridView.h
 	${SRC}/Helpers/Theme.cpp
-	${SRC}/Helpers/Theme.h)
+	${SRC}/Helpers/Theme.h ../src/Entities/Chapter.h)
 
 add_executable(Graphie ${SOURCES})
 
