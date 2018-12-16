@@ -10,6 +10,8 @@
 
 #include "oxygine-framework.h"
 #include <functional>
+#include "Game.h"
+#include "Helpers/ScreenSwitcher.h"
 
 using namespace oxygine;
 
@@ -22,7 +24,7 @@ public:
 	Color color;
 	spSprite preview;
 
-    MainMenu();
+    MainMenu(std::shared_ptr<Game> game, ScreenSwitcherPtr screenSwitcherPtr);
 
     void buttonClicked(Event* event);
     void onDown(Event* ev);
@@ -37,10 +39,10 @@ private:
     void setupAboutButton();
     void startButtonClicked(Event* event);
     void settingsButtonClicked(Event* event);
+    std::shared_ptr<Game> game;
+    ScreenSwitcherPtr screenSwitcherPtr;
 };
-//declare spMainActor as intrusive_ptr holder of MainActor
+
 typedef oxygine::intrusive_ptr<MainMenu> spMainMenu;
-//you could use DECLARE_SMART preprocessor definition it does the same:
-//DECLARE_SMART(MainActor, spMainActor)
 
 #endif /* MAINMENU_H_ */

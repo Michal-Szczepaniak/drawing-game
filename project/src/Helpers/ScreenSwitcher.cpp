@@ -12,31 +12,29 @@
 #include "../ChapterScreen.h"
 #include "../SettingsScreen.h"
 
-ScreenSwitcher::ScreenSwitcher() {
-
+ScreenSwitcher::ScreenSwitcher(std::shared_ptr<class Game> game) {
+	this->game = game;
 }
 
-ScreenSwitcher::~ScreenSwitcher() {
-}
+ScreenSwitcher::~ScreenSwitcher() = default;
 
-void ScreenSwitcher::registerScreens() {
-	screens.push_back(std::make_pair("MainMenu", new MainMenu()));
+void ScreenSwitcher::registerScreens(std::shared_ptr<ScreenSwitcher> screenswitcherPtr) {
+	screens.emplace_back("MainMenu", new MainMenu(game, screenswitcherPtr));
 	getStage()->addChild(getScreen("MainMenu"));
 
-	screens.push_back(std::make_pair("GameScreen", new GameScreen()));
+	screens.emplace_back("GameScreen", new GameScreen(game, screenswitcherPtr));
 	getStage()->addChild(getScreen("GameScreen"));
 	getScreen("GameScreen")->setVisible(false);
 
-	screens.push_back(std::make_pair("ChapterScreen", new ChapterScreen()));
+	screens.emplace_back("ChapterScreen", new ChapterScreen(game, screenswitcherPtr));
 	getStage()->addChild(getScreen("ChapterScreen"));
 	getScreen("ChapterScreen")->setVisible(false);
 
-	screens.push_back(std::make_pair("SettingsScreen", new SettingsScreen()));
+	screens.emplace_back("SettingsScreen", new SettingsScreen(game, screenswitcherPtr));
 	getStage()->addChild(getScreen("SettingsScreen"));
 	getScreen("SettingsScreen")->setVisible(false);
 
-
-	currentScreenName = "MainMenu";
+	currentScreenName = screens.front().first;
 }
 
 Actor* ScreenSwitcher::getCurrentScreen() {

@@ -11,20 +11,24 @@
 #include "oxygine-framework.h"
 #include <functional>
 #include "Helpers/GridView.h"
+#include "Game.h"
+#include "Helpers/ScreenSwitcher.h"
 
 using namespace oxygine;
 
 class ChapterScreen: public Actor
 {
 public:
-	ChapterScreen();
+	ChapterScreen(std::shared_ptr<Game> game, ScreenSwitcherPtr screenSwitcherPtr);
 
 private:
 	int currentChapter;
 	spSprite    _backButton, _nextButton, _prevButton;
 	spSprite    _chapterButton1, _chapterButton2, _chapterButton3, _chapterButton4, _chapterButton5, _chapterButton6, _chapterButton7, _chapterButton8;
 	spTextField _title;
-	GridView*	gridView;
+        GridView*	gridView;
+        std::shared_ptr<Game> game;
+        ScreenSwitcherPtr screenSwitcherPtr;
 
 	void setupBackButton();
 	void setupChapterButtons();

@@ -15,16 +15,18 @@ using namespace oxygine;
 
 class MusicPlayer {
 public:
-	MusicPlayer();
+	MusicPlayer(std::shared_ptr<Resources> resources);
 	~MusicPlayer();
 
 	void update();
 	void setMuted(bool muted);
 
 	void musicDone(Event* ev);
+	std::shared_ptr<Resources> resources;
 
 private:
 	SoundPlayer musicPlayer;
 };
+typedef std::shared_ptr<MusicPlayer> MusicPlayerPtr;
 
 #endif /* MUSICPLAYER_H_ */

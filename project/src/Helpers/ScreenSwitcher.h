@@ -9,36 +9,28 @@
 #define SCREENSWITCHER_H_
 
 #include "oxygine-framework.h"
+#include "../Game.h"
 
 using namespace oxygine;
 
 class ScreenSwitcher
 {
-    public:
-        static ScreenSwitcher& getInstance()
-        {
-            static ScreenSwitcher instance; // Guaranteed to be destroyed.
-                                  // Instantiated on first use.
-            return instance;
-        }
-    private:
-        ScreenSwitcher();
+public:
+    ScreenSwitcher(std::shared_ptr<class Game> game);
+    ~ScreenSwitcher();
 
-        ~ScreenSwitcher();
+public:
 
-        std::vector<std::pair<std::string, Actor*>> screens;
-        std::string currentScreenName;
+    void registerScreens(std::shared_ptr<ScreenSwitcher> screenSwitcherPtr);
+    Actor* getCurrentScreen();
+    Actor* getScreen(std::string name);
+    Actor* switchScreen(std::string name);
 
-    public:
-        ScreenSwitcher(ScreenSwitcher const&) = delete;
-        void operator=(ScreenSwitcher const&) = delete;
-
-        void registerScreens();
-        Actor* getCurrentScreen();
-        Actor* getScreen(std::string name);
-        Actor* switchScreen(std::string name);
-
-
+private:
+    std::vector<std::pair<std::string, Actor*>> screens;
+    std::string currentScreenName;
+    std::shared_ptr<class Game> game;
 };
+typedef std::shared_ptr < ScreenSwitcher > ScreenSwitcherPtr;
 
 #endif /* SCREENSWITCHER_H_ */

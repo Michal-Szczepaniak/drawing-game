@@ -6,7 +6,6 @@
  */
 
 #include "MusicPlayer.h"
-#include "Game.h"
 #include "Helpers/Configuration.h"
 #include "sound/SoundSystem.h"
 #include "sound/SoundInstance.h"
@@ -15,12 +14,13 @@
 
 using namespace oxygine;
 
-MusicPlayer::MusicPlayer() {
+MusicPlayer::MusicPlayer(std::shared_ptr<Resources> resources) {
 	srand (time(NULL));
+	this->resources = resources;
 
 	musicPlayer.setVolume(!((*Configuration::getInstance().getSettings())["muted"].asBool())*1.0f);
 	int songId = rand() % (Configuration::getInstance().getSongs()->size());
-	spSoundInstance music = musicPlayer.play(::getGameResources()->get((*Configuration::getInstance().getSongs())[songId].asString()), PlayOptions());
+	spSoundInstance music = musicPlayer.play(resources->get((*Configuration::getInstance().getSongs())[songId].asString()), PlayOptions());
 	music->setDoneCallback(CLOSURE(this, &MusicPlayer::musicDone));
 }
 
@@ -39,6 +39,6 @@ void MusicPlayer::setMuted(bool muted) {
 
 void MusicPlayer::musicDone(Event* ev) {
 	int songId = rand() % (Configuration::getInstance().getSongs()->size());
-	spSoundInstance music = musicPlayer.play(::getGameResources()->get((*Configuration::getInstance().getSongs())[songId].asString()), PlayOptions());
+	spSoundInstance music = musicPlayer.play(resources->get((*Configuration::getInstance().getSongs())[songId].asString()), PlayOptions());
 	music->setDoneCallback(CLOSURE(this, &MusicPlayer::musicDone));
 }

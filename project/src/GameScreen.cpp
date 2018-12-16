@@ -5,7 +5,10 @@
 
 using namespace oxygine;
 
-GameScreen::GameScreen() {
+GameScreen::GameScreen(std::shared_ptr<Game> game, ScreenSwitcherPtr screenSwitcherPtr) {
+	this->game = game;
+	this->screenSwitcherPtr = screenSwitcherPtr;
+
 	level = NULL;
 
 	setupDrawingSpace();
@@ -15,7 +18,7 @@ GameScreen::GameScreen() {
 
 void GameScreen::setupControls() {
 //	spSprite finish = initActor(new Sprite,
-//			arg_resAnim = ::getGameResources()->getResAnim("mainmenu_about_button"),
+//			arg_resAnim = game->getResources()->getResAnim("mainmenu_about_button"),
 //			arg_attachTo = this,
 //			arg_size = Vector2(getStage()->getSize().x /40, getStage()->getSize().x /40),
 //			arg_pos = Vector2(getStage()->getSize().x/2 - getStage()->getSize().x /40/2, getStage()->getSize().y/40)
@@ -98,6 +101,6 @@ int GameScreen::countRepeatTimes(Vector2 oldV, Vector2 newV) {
 void GameScreen::setLevel(Json::Value* level) {
 	this->level = level;
 	logs::messageln("image %d", level);
-	_image->setResAnim(::getGameResources()->getResAnim(level->asCString()));
+	_image->setResAnim(game->getResources()->getResAnim(level->asCString()));
 	_image->setSize(getStage()->getSize().x/2 - getStage()->getSize().x/20/2, getStage()->getSize().y);
 }

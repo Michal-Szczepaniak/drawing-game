@@ -15,9 +15,8 @@ namespace oxygine
 	}
 }
 
-
 // This function is called each frame
-int mainloop()
+int mainloop(std::shared_ptr<Game> game)
 {
     // Update engine-internal components
     // If input events are available, they are passed to Stage::instance.handleEvent
@@ -25,7 +24,7 @@ int mainloop()
     bool done = core::update();
 
     // It gets passed to our example game implementation
-    game_update();
+    game->update();
 
     // Update our stage
     // Update all actors. Actor::update will also be called for all its children
@@ -49,6 +48,7 @@ int mainloop()
 void run()
 {
     ObjectBase::__startTracingLeaks();
+    std::shared_ptr<Game> game(new Game());
 
 #if RELEASE
     oxygine::file::_fsInitialized = true;
@@ -72,7 +72,7 @@ void run()
     // Marmalade settings can be modified from the emulator's menu
 #endif
 
-    game_preinit();
+    game->preInit(game);
     core::init(&desc);
 
     Json::Value* resolutions = Configuration::getInstance().getResolutions();
@@ -103,7 +103,7 @@ void run()
     DebugActor::show();
 
     // Initializes our example game. See example.cpp
-    game_init();
+    game->init();
 
 #ifdef EMSCRIPTEN
     /*
@@ -114,9 +114,9 @@ void run()
 #endif
 
     // This is the main game loop.
-    while (1)
+    while (true)
     {
-        int done = mainloop();
+        int done = mainloop(game);
         if (done)
             break;
     }
@@ -134,8 +134,7 @@ void run()
     */
 
     // See example.cpp for the shutdown function implementation
-    game_destroy();
-
+    game->destroy();
 
     //renderer.cleanup();
 
@@ -150,7 +149,6 @@ void run()
     //end
 }
 
-
 #ifdef OXYGINE_SDL
 
 #include "SDL_main.h"
@@ -158,8 +156,8 @@ void run()
 
 extern "C"
 {
-    void one(void* param) { mainloop(); }
-    void oneEmsc() { mainloop(); }
+//    void one(void* param) { mainloop(); }
+//    void oneEmsc() { mainloop(); }
 
     int main(int argc, char* argv[])
     {

@@ -11,17 +11,21 @@
 #include "oxygine-framework.h"
 #include <functional>
 #include "json/json.h"
+#include "Game.h"
+#include "Helpers/ScreenSwitcher.h"
 
 using namespace oxygine;
 
 class SettingsScreen: public Actor
 {
 public:
-	SettingsScreen();
+	SettingsScreen(std::shared_ptr<Game> game, ScreenSwitcherPtr screenSwitcherPtr);
 
 private:
 	spTextField _tittle, _langsText, _langsLabel, _muteText, _muteLabel;
 	spSprite    _backButton, _langsButton, _muteButton;
+	std::shared_ptr<Game> game;
+	ScreenSwitcherPtr screenSwitcherPtr;
 
 	void setupTittle();
 	void setupBackButton();

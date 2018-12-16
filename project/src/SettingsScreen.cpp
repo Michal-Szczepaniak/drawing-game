@@ -10,7 +10,9 @@
 #include "Helpers/ScreenSwitcher.h"
 #include "Helpers/Configuration.h"
 
-SettingsScreen::SettingsScreen() {
+SettingsScreen::SettingsScreen(std::shared_ptr<Game> game, ScreenSwitcherPtr screenSwitcherPtr) {
+	this->game = game;
+	this->screenSwitcherPtr = screenSwitcherPtr;
 
 	setupTittle();
 	setupBackButton();
@@ -26,7 +28,7 @@ void SettingsScreen::setupTittle() {
 	text->setPosition(getStage()->getSize().x / 2, getStage()->getSize().y / 5.5);
 
 	//initialize text style
-	TextStyle style = TextStyle(::getGameResources()->getResFont("Roboto-Bold")).withFontSize(160).withColor(Color::White).alignMiddle();
+	TextStyle style = TextStyle(game->getResources()->getResFont("Roboto-Bold")).withFontSize(160).withColor(Color::White).alignMiddle();
 	text->setStyle(style);
 	text->setText((*translations)["settings"].asString());
 
@@ -35,7 +37,7 @@ void SettingsScreen::setupTittle() {
 
 void SettingsScreen::setupBackButton() {
     spSprite button = initActor(new Sprite,
-    		arg_resAnim = ::getGameResources()->getResAnim("back_button"),
+    		arg_resAnim = game->getResources()->getResAnim("back_button"),
 			arg_pos = getStage()->getSize()/56,
 			arg_attachTo = this,
 			arg_size = Vector2(getStage()->getSize().x /12, getStage()->getSize().x /12)
@@ -51,7 +53,7 @@ void SettingsScreen::setupLanguagesButton() {
 	Json::Value* translations = Configuration::getInstance().getTranslations();
 
     spSprite langsButton = initActor(new Sprite,
-    		arg_resAnim = ::getGameResources()->getResAnim("settings_button"),
+    		arg_resAnim = game->getResources()->getResAnim("settings_button"),
 			arg_attachTo = this
     		);
     langsButton->setPosition(Vector2(getStage()->getSize().x/2 - langsButton->getSize().x/2, getStage()->getSize().y/2.12));
@@ -61,7 +63,7 @@ void SettingsScreen::setupLanguagesButton() {
 	langsText->attachTo(langsButton);
     langsText->setPosition(langsButton->getSize().x / 2, (langsButton->getSize().y / 2) - (langsButton->getSize().y / 7));
 
-	TextStyle style = TextStyle(::getGameResources()->getResFont("Roboto-Regular")).withFontSize(60).withColor(Color::Black).alignMiddle();
+	TextStyle style = TextStyle(game->getResources()->getResFont("Roboto-Regular")).withFontSize(60).withColor(Color::Black).alignMiddle();
 	langsText->setStyle(style);
 
 	if(!settings->isMember("language") || !languages->isMember((*settings)["language"].asString())) {
@@ -74,7 +76,7 @@ void SettingsScreen::setupLanguagesButton() {
 	langsLabel->attachTo(this);
 	langsLabel->setPosition(Vector2(getStage()->getSize().x/2, langsButton->getPosition().y - getStage()->getSize().y/15));
 
-	TextStyle labelStyle = TextStyle(::getGameResources()->getResFont("Roboto-Bold")).withFontSize(54).withColor(Color::Black).alignMiddle();
+	TextStyle labelStyle = TextStyle(game->getResources()->getResFont("Roboto-Bold")).withFontSize(54).withColor(Color::Black).alignMiddle();
 	langsLabel->setStyle(labelStyle);
 	langsLabel->setText((*translations)["languages"].asString());
 
@@ -88,7 +90,7 @@ void SettingsScreen::setupMuteButton() {
 	Json::Value* translations = Configuration::getInstance().getTranslations();
 
     spSprite muteButton = initActor(new Sprite,
-    		arg_resAnim = ::getGameResources()->getResAnim("settings_button"),
+    		arg_resAnim = game->getResources()->getResAnim("settings_button"),
 			arg_attachTo = this
     		);
     muteButton->setPosition(Vector2(getStage()->getSize().x/2 - muteButton->getSize().x/2, getStage()->getSize().y/1.37));
@@ -98,7 +100,7 @@ void SettingsScreen::setupMuteButton() {
 	muteText->attachTo(muteButton);
     muteText->setPosition(muteButton->getSize().x / 2, (muteButton->getSize().y / 2) - (muteButton->getSize().y / 7));
 
-	TextStyle style = TextStyle(::getGameResources()->getResFont("Roboto-Regular")).withFontSize(60).withColor(Color::Black).alignMiddle();
+	TextStyle style = TextStyle(game->getResources()->getResFont("Roboto-Regular")).withFontSize(60).withColor(Color::Black).alignMiddle();
 	muteText->setStyle(style);
 
 	if(!settings->isMember("muted")) {
@@ -114,7 +116,7 @@ void SettingsScreen::setupMuteButton() {
 	muteLabel->attachTo(this);
 	muteLabel->setPosition(Vector2(getStage()->getSize().x/2, muteButton->getPosition().y - getStage()->getSize().y/15));
 
-	TextStyle labelStyle = TextStyle(::getGameResources()->getResFont("Roboto-Bold")).withFontSize(54).withColor(Color::Black).alignMiddle();
+	TextStyle labelStyle = TextStyle(game->getResources()->getResFont("Roboto-Bold")).withFontSize(54).withColor(Color::Black).alignMiddle();
 	muteLabel->setStyle(labelStyle);
 	muteLabel->setText((*translations)["sound"].asString());
 
@@ -125,7 +127,7 @@ void SettingsScreen::setupMuteButton() {
 
 void SettingsScreen::backButtonClicked(Event* ev) {
 	logs::messageln("back button clicked");
-	ScreenSwitcher::getInstance().switchScreen("MainMenu");
+	screenSwitcherPtr->switchScreen("MainMenu");
 }
 
 void SettingsScreen::languagesButtonClicked(Event* ev) {
@@ -168,7 +170,7 @@ void SettingsScreen::muteButtonClicked(Event* ev) {
 	else
 		_muteText->setText((*translations)["unmuted"].asString());
 
-	::getMusicPlayer()->setMuted((*settings)["muted"].asBool());
+	game->getMusicPlayer()->setMuted((*settings)["muted"].asBool());
 
 	Configuration::getInstance().save();
 }

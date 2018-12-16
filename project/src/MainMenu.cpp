@@ -5,7 +5,10 @@
 #include "Game.h"
 using namespace oxygine;
 
-MainMenu::MainMenu() {
+MainMenu::MainMenu(std::shared_ptr<Game> game, ScreenSwitcherPtr screenSwitcherPtr) {
+    this->game = game;
+    this->screenSwitcherPtr = screenSwitcherPtr;
+
 	setupStartButton();
 	setupSettingsButton();
 	setupHelpButton();
@@ -14,7 +17,7 @@ MainMenu::MainMenu() {
 
 void MainMenu::setupStartButton() {
     spSprite button = new Sprite();
-    button->setResAnim(::getGameResources()->getResAnim("mainmenu_button"));
+    button->setResAnim(game->getResources()->getResAnim("mainmenu_button"));
 
 //    button->setSize(getStage()->getSize().x / 3.31, getStage()->getSize().y / 8.5);
     logs::messageln("button scale: %f", getStage()->getScale().x);
@@ -34,7 +37,7 @@ void MainMenu::setupStartButton() {
     text->setPosition(button->getSize().x / 2, (button->getSize().y / 2) - (button->getSize().y / 8));
 
 
-    TextStyle style = TextStyle(::getGameResources()->getResFont("Roboto-Regular")).withFontSize(30).withColor(Color::Black).alignMiddle();
+    TextStyle style = TextStyle(game->getResources()->getResFont("Roboto-Regular")).withFontSize(30).withColor(Color::Black).alignMiddle();
     text->setStyle(style);
     text->setText("start");
 
@@ -47,7 +50,7 @@ void MainMenu::setupSettingsButton() {
 
     //setup it:
     //set button.png image. Resource 'button' defined in 'res.xml'
-    button->setResAnim(::getGameResources()->getResAnim("mainmenu_button"));
+    button->setResAnim(game->getResources()->getResAnim("mainmenu_button"));
 
     //centered button at screen
 //    button->setSize(_startButton->getSize());
@@ -69,7 +72,7 @@ void MainMenu::setupSettingsButton() {
     text->setPosition(button->getSize().x / 2, (button->getSize().y / 2) - (button->getSize().y / 8));
 
     //initialize text style
-    TextStyle style = TextStyle(::getGameResources()->getResFont("Roboto-Regular")).withFontSize(30).withColor(Color::Black).alignMiddle();
+    TextStyle style = TextStyle(game->getResources()->getResFont("Roboto-Regular")).withFontSize(30).withColor(Color::Black).alignMiddle();
     text->setStyle(style);
     text->setText("opcje");
 
@@ -82,7 +85,7 @@ void MainMenu::setupHelpButton() {
 
     //setup it:
     //set button.png image. Resource 'button' defined in 'res.xml'
-    button->setResAnim(::getGameResources()->getResAnim("mainmenu_button"));
+    button->setResAnim(game->getResources()->getResAnim("mainmenu_button"));
 
     //centered button at screen
 //    button->setSize(_startButton->getSize());
@@ -104,7 +107,7 @@ void MainMenu::setupHelpButton() {
     text->setPosition(button->getSize().x / 2, (button->getSize().y / 2) - (button->getSize().y / 8));
 
     //initialize text style
-    TextStyle style = TextStyle(::getGameResources()->getResFont("Roboto-Regular")).withFontSize(30).withColor(Color::Black).alignMiddle();
+    TextStyle style = TextStyle(game->getResources()->getResFont("Roboto-Regular")).withFontSize(30).withColor(Color::Black).alignMiddle();
     text->setStyle(style);
     text->setText("help");
 
@@ -117,7 +120,7 @@ void MainMenu::setupAboutButton() {
 
     //setup it:
     //set button.png image. Resource 'button' defined in 'res.xml'
-    button->setResAnim(::getGameResources()->getResAnim("mainmenu_about_button"));
+    button->setResAnim(game->getResources()->getResAnim("mainmenu_about_button"));
 
     //centered button at screen
     button->setSize(getStage()->getSize().x / 7, getStage()->getSize().y / 13);
@@ -139,7 +142,7 @@ void MainMenu::setupAboutButton() {
     text->setPosition(button->getSize().x / 2, (button->getSize().y / 2) - (button->getSize().y / 8));
 
     //initialize text style
-    TextStyle style = TextStyle(::getGameResources()->getResFont("Roboto-Regular")).withFontSize(30).withColor(Color::Black).alignMiddle();
+    TextStyle style = TextStyle(game->getResources()->getResFont("Roboto-Regular")).withFontSize(30).withColor(Color::Black).alignMiddle();
     text->setStyle(style);
     text->setText("about");
 
@@ -148,12 +151,12 @@ void MainMenu::setupAboutButton() {
 
 void MainMenu::startButtonClicked(Event* event) {
 	logs::messageln("start button clicked");
-	ScreenSwitcher::getInstance().switchScreen("ChapterScreen");
+	screenSwitcherPtr->switchScreen("ChapterScreen");
 }
 
 void MainMenu::settingsButtonClicked(Event* event) {
 	logs::messageln("settings button clicked");
-	ScreenSwitcher::getInstance().switchScreen("SettingsScreen");
+	screenSwitcherPtr->switchScreen("SettingsScreen");
 }
 
 void MainMenu::buttonClicked(Event* event) {
